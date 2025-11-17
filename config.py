@@ -24,3 +24,7 @@ LAYOUT = "wide"
 # Message Configuration
 USER_INPUT_PLACEHOLDER = "Type your message here..."
 THINKING_MESSAGE = "Thinking..."
+
+# Avatar Configuration
+USER_AVATAR = "👤"
+ASSISTANT_AVATAR = "💡"

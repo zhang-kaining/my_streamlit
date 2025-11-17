@@ -120,7 +120,8 @@ def render_sidebar() -> tuple[str, str]:
 def render_chat_history() -> None:
     """Render chat history."""
     for message in st.session_state.messages:
-        with st.chat_message(message["role"]):
+        avatar = config.USER_AVATAR if message["role"] == "user" else config.ASSISTANT_AVATAR
+        with st.chat_message(message["role"], avatar=avatar):
             st.markdown(message["content"])
             # Display token usage for assistant messages
             if message["role"] == "assistant" and message.get("usage"):
@@ -151,11 +152,11 @@ def handle_user_input(api_url: str, user_input: str, model: str) -> None:
         }
     )
 
-    with st.chat_message("user"):
+    with st.chat_message("user", avatar=config.USER_AVATAR):
         st.markdown(user_input)
 
     # Get and display assistant response
-    with st.chat_message("assistant"):
+    with st.chat_message("assistant", avatar=config.ASSISTANT_AVATAR):
         with st.spinner(config.THINKING_MESSAGE):
             logger.info(f"Sending {len(st.session_state.messages)} messages to backend")
             result = call_backend_api(api_url, st.session_state.messages, model)
